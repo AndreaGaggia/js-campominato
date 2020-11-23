@@ -91,5 +91,5 @@ function punteggio(tentativi) {
 }
 
 function welcome() {
-  alert("Benvenut@! Vincere a questo gioco è easy: inserisci un numero da 1 a 100 e se questo è presente in una lista random generata automaticamente dal pc... hai vinto\nFai attenzione a seguire alcune regole:\n\t- Non ripetere lo stesso numero in tentativi successivi\n\t- Non inserire numeri al di fuori dell'intervallo 1-100 (1 e 100 sono compresi, quindi ammessi)\nPront@? Premi OK per iniziare ;)")
+  alert("Benvenut@! Vincere a questo gioco è easy: inserisci un numero da 1 a 100 e se questo è presente in una lista random generata automaticamente dal pc... hai vinto!!\nFai attenzione a seguire alcune regole:\n\t- Non ripetere lo stesso numero in tentativi successivi\n\t- Non inserire numeri al di fuori dell'intervallo 1-100 (1 e 100 sono compresi, quindi ammessi)\nPront@? Premi OK per iniziare ;)")
 }
