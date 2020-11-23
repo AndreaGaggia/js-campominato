@@ -45,7 +45,6 @@ while (keepGoing && userNumberList.length < maxTentativi) {
   }
   switch (userNumber >= 1 && userNumber <= 100) {
     // il numero inserito è presente all'interno della pcNumberList e quindi la partita termina
-    // case pcNumberList.includes(userNumber):
     case match(userNumber, pcNumberList):
       console.log("Hai vinto! Il numero " + userNumber + " è in lista.");
       keepGoing = false;
@@ -63,19 +62,6 @@ while (keepGoing && userNumberList.length < maxTentativi) {
 }
 var tentativiBuoni = userNumberList.length;
 console.log("N° tentativi a vuoto ma corretti: " + tentativiBuoni);
-
-
-// userNumber >= 1 && userNumber <= 100
-
-
-// l'utente inserisce un numero fuori dall'intervallo e quindi la partita termina
-// case (userNumber < 1 || userNumber > 100):
-//   console.log("il numero deve essere compreso tra 1 e 100");
-//   keepGoing = false;
-//   break;
-
-
-
 
 // FUNZIONI
 function randomInt(min, max) {
