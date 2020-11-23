@@ -50,12 +50,12 @@ while (keepGoing && userNumberList.length < maxTentativi) {
       keepGoing = false;
       break;
     // l'utente inserisce due volte lo stesso numero e quindi la partita termina
-    case userNumberList.includes(userNumber):
+    case match(userNumber, userNumberList):
       console.log("Hai già inserito il numero " + userNumber + "... Partita finita");
       keepGoing = false;
       break;
     // tentativo buono, numero inserito nell'array
-    default:
+    case !(userNumberList.includes(userNumber)):
       userNumberList.push(userNumber);
       break;
   }
