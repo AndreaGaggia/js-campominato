@@ -34,12 +34,16 @@ while (pcNumberList.length < listLength) {
 console.log(pcNumberList);
 
 // 2. In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100. 
+
+// piccolo benvenuto con descrizione regole
+welcome();
+
 var userNumberList = [];
 var maxTentativi = 100 - 16;
 var keepGoing = true;
 while (keepGoing && userNumberList.length < maxTentativi) {
   var tentativiBuoni = userNumberList.length;
-  var userNumber = Number(prompt("Inserisci un numero da 1 a 100\nNon inserire più volte lo stesso numero"));
+  var userNumber = Number(prompt("Tentatitivo " + (tentativiBuoni + 1) + ". Buona fortuna!"));
   if (userNumber < 1 || userNumber > 100) {
     alert("Devi inserire un numero compreso tra 1 e 100. Ricarica la pagina per riprovare.");
     keepGoing = false;
@@ -82,6 +86,10 @@ function punteggio(tentativi) {
   } else if (tentativi === 1) {
     return "Beccato dopo un solo tentativo a vuoto!";
   } else {
-    return "Beccato dopo " + tentativiBuoni + " tentativi :)";
+    return "Beccato dopo " + tentativiBuoni + " tentativi a vuoto :)";
   }
+}
+
+function welcome() {
+  alert("Benvenut@! Vincere a questo gioco è easy: inserisci un numero da 1 a 100 e se questo è presente in una lista random generata automaticamente dal pc... hai vinto\nFai attenzione a seguire alcune regole:\n\t- Non ripetere lo stesso numero in tentativi successivi\n\t- Non inserire numeri al di fuori dell'intervallo 1-100 (1 e 100 sono compresi, quindi ammessi)\nPront@? Premi OK per iniziare ;)")
 }
