@@ -38,20 +38,22 @@ var userNumberList = [];
 var maxTentativi = 100 - 16;
 var keepGoing = true;
 while (keepGoing && userNumberList.length < maxTentativi) {
+  var tentativiBuoni = userNumberList.length;
   var userNumber = Number(prompt("Inserisci un numero da 1 a 100\nNon inserire più volte lo stesso numero"));
   if (userNumber < 1 || userNumber > 100) {
     alert("Devi inserire un numero compreso tra 1 e 100. Ricarica la pagina per riprovare.");
     keepGoing = false;
   }
   switch (userNumber >= 1 && userNumber <= 100) {
-    // il numero inserito è presente all'interno della pcNumberList e quindi la partita termina
+    // il numero inserito è presente all'interno della pcNumberList e quindi la partita termina con la comunicazione del punteggio
     case match(userNumber, pcNumberList):
-      console.log("Hai vinto! Il numero " + userNumber + " è in lista.");
+      alert("Hai vinto! Il numero " + userNumber + " è in lista.");
+      alert(punteggio(tentativiBuoni));
       keepGoing = false;
       break;
     // l'utente inserisce due volte lo stesso numero e quindi la partita termina
     case match(userNumber, userNumberList):
-      console.log("Hai già inserito il numero " + userNumber + "... Partita finita");
+      alert("Hai già inserito il numero " + userNumber + "... Partita finita :(\nAggiorna la pagina per ricominciare");
       keepGoing = false;
       break;
     // tentativo buono, numero inserito nell'array
@@ -60,8 +62,6 @@ while (keepGoing && userNumberList.length < maxTentativi) {
       break;
   }
 }
-var tentativiBuoni = userNumberList.length;
-console.log("N° tentativi a vuoto ma corretti: " + tentativiBuoni);
 
 // FUNZIONI
 function randomInt(min, max) {
@@ -73,5 +73,15 @@ function match(num, array) {
     if (num === array[i]) {
       return true;
     }
+  }
+}
+
+function punteggio(tentativi) {
+  if (tentativi === 0) {
+    return "Beccato al primo colpo!";
+  } else if (tentativi === 1) {
+    return "Beccato dopo un solo tentativo a vuoto!";
+  } else {
+    return "Beccato dopo " + tentativiBuoni + " tentativi :)";
   }
 }
