@@ -1,78 +1,59 @@
 /*
-Il computer deve generare 16 numeri casuali tra 1 e 100.
-I numeri non possono essere duplicati
-In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
-L’utente non può inserire più volte lo stesso numero.
-Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
-La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
-Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-BONUS: (da fare solo se funziona tutto il resto)
-all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
-con difficoltà 0 => tra 1 e 100
-con difficoltà 1 =>  tra 1 e 80
-con difficoltà 2 => tra 1 e 50
-Consigli del giorno: :party_wizard:
-Scriviamo prima cosa vogliamo fare passo passo in italiano, dividiamo il lavoro in micro problemi.
-Ad esempio:
-Di cosa ho bisogno per generare i numeri?
-Proviamo sempre prima con dei console.log() per capire se stiamo ricevendo i dati giusti.
-Proviamo prima con pochi numeri, inserire 86 numeri ogni volta potrebbe essere un po’ scocciante :wink:
-Le validazioni e i controlli possiamo farli anche in un secondo momento.
-Ricordatevi che se non sappiamo quante volte dobbiamo fare una cosa ci serve… :stuck_out_tongue:
-Buon divertimento a tutt* :muscle: :video_game:
+CAMPO
+MINATO
 */
 
 // 1. Il computer deve generare 16 numeri casuali tra 1 e 100. I numeri non possono essere duplicati
-var pcNumberList = [];
-var listLength = 16;
-while (pcNumberList.length < listLength) {
+var pcList = [];
+while (pcList.length < 16) {
   var randomNumber = randomInt(1, 100);
-  if (!(pcNumberList.includes(randomNumber))) { // se non è (già) incluso nell'array
-    pcNumberList.push(randomNumber);
+  if (!existInArray(randomNumber, pcList)) { // se non è (già) incluso nell'array
+    pcList.push(randomNumber);
   }
 }
-console.log(pcNumberList);
+console.log(pcList);
 
 // 2. In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100. 
+var difficultyLevel = 100; // questo al momento è fisso ma cambierà con l'introduzione della scelta della difficoltà
+var maxTries = difficultyLevel - 16;
+var userList = []; //array che conterrà gli inserimenti da parte dell'utente
+var keepGoing = true; //variabile 'sentinella' che mi serve per bloccare le iterazioni rendendola falsa all'occorrenza di alcune condizioni
 
-// piccolo benvenuto con descrizione regole
-welcome();
+//messaggi per l'utente
+alert("Benvenuto a campo minato easy! Niente immagini, solo numeri ;)")
+alert("Inserisci più numeri che puoi evitando di far saltare mine! Fai attenzione a seguire alcune regole:\n- Non ripetere lo stesso numero in tentativi successivi\n- Non inserire numeri al di fuori dell'intervallo 1-100\nPronto? Premi OK per iniziare ;)");
 
-var userNumberList = [];
-var maxTentativi = 100 - 16;
-var keepGoing = true;
-while (keepGoing && userNumberList.length < maxTentativi) {
-  var tentativiBuoni = userNumberList.length;
-  var userNumber = Number(prompt("Tentatitivo " + (tentativiBuoni + 1) + ". Buona fortuna!"));
+//il ciclo che segue il funzionamento del gioco secondo le istruzioni della consegna
+while (keepGoing && userList.length < maxTries) {
+  var tries = userList.length;
+  var userNumber = Number(prompt("Inserimento " + (tries + 1) + ". Buona fortuna!"));
   if (userNumber < 1 || userNumber > 100) {
-    alert("Devi inserire un numero compreso tra 1 e 100. Ricarica la pagina per riprovare.");
+    alert("Partita terminata. Hai inserito un numero NON compreso tra 1 e 100.");
+    punteggioNumeroVietato(tries);
     keepGoing = false;
-  }
-  switch (userNumber >= 1 && userNumber <= 100) {
-    // il numero inserito è presente all'interno della pcNumberList e quindi la partita termina con la comunicazione del punteggio
-    case match(userNumber, pcNumberList):
-      alert("Hai vinto! Il numero " + userNumber + " è in lista.");
-      alert(punteggio(tentativiBuoni));
-      keepGoing = false;
-      break;
-    // l'utente inserisce due volte lo stesso numero e quindi la partita termina
-    case match(userNumber, userNumberList):
-      alert("Hai già inserito il numero " + userNumber + "... Partita finita :(\nAggiorna la pagina per ricominciare");
-      keepGoing = false;
-      break;
-    // tentativo buono, numero inserito nell'array
-    case !(userNumberList.includes(userNumber)):
-      userNumberList.push(userNumber);
-      break;
+  } else if (existInArray(userNumber, userList)) {
+    alert("Hai già inserito il numero " + userNumber + "... Partita terminata");
+    punteggioNumeroVietato(tries);
+    keepGoing = false;
+  } else if (existInArray(userNumber, pcList)) {
+    alert("Partita terminata. Il numero " + userNumber + " è una mina.");
+    punteggioMinaTrovata(tries);
+    keepGoing = false;
+  } else {
+    userList.push(userNumber);
+    console.log(userList);
   }
 }
 
-// FUNZIONI
+
+//FUNZIONI
+
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function match(num, array) {
+
+function existInArray(num, array) {
   for (var i = 0; i < array.length; i++) {
     if (num === array[i]) {
       return true;
@@ -80,16 +61,16 @@ function match(num, array) {
   }
 }
 
-function punteggio(tentativi) {
+//per mostrare i punteggi a seconda del (macro)caso
+function punteggioMinaTrovata(tentativi) {
   if (tentativi === 0) {
-    return "Beccato al primo colpo!";
+    return alert("Beccato al primo colpo... che sfiga :(\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
   } else if (tentativi === 1) {
-    return "Beccato dopo un solo tentativo a vuoto!";
+    return alert("Beccato dopo un solo inserimento :(\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
   } else {
-    return "Beccato dopo " + tentativiBuoni + " tentativi a vuoto :)";
+    return alert("Beccato dopo " + tentativi + " inserimenti.\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
   }
 }
-
-function welcome() {
-  alert("Benvenut@! Vincere a questo gioco è easy: inserisci un numero da 1 a 100 e se questo è presente in una lista random generata automaticamente dal pc... hai vinto!!\nFai attenzione a seguire alcune regole:\n\t- Non ripetere lo stesso numero in tentativi successivi\n\t- Non inserire numeri al di fuori dell'intervallo 1-100 (1 e 100 sono compresi, quindi ammessi)\nPront@? Premi OK per iniziare ;)")
+function punteggioNumeroVietato(tentativi) {
+  return alert("Il tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
 }
