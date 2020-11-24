@@ -64,11 +64,11 @@ function existInArray(num, array) {
 //per mostrare i punteggi a seconda del (macro)caso
 function punteggioMinaTrovata(tentativi) {
   if (tentativi === 0) {
-    return alert("Beccato al primo colpo... che sfiga :(\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
+    return alert("Mina beccata al primo colpo... che sfiga :(\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
   } else if (tentativi === 1) {
-    return alert("Beccato dopo un solo inserimento :(\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
+    return alert("Mina beccata dopo un solo inserimento :(\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
   } else {
-    return alert("Beccato dopo " + tentativi + " inserimenti.\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
+    return alert("Mina beccata dopo " + tentativi + " inserimenti.\nIl tuo punteggio è " + tentativi + "\nRicarica la pagina per giocare un altra partita :)");
   }
 }
 function punteggioNumeroVietato(tentativi) {
