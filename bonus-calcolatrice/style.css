@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 10vh;
+  color: #fff;
+  font-family: 'Bungee', cursive;
+}
+
+.corpo-calcolatrice {
+  width: 40vw;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 0 20px black;
+  background-color: darkblue;
+}
+
+#schermo {
+  height: 80px;
+  line-height: 80px;
+  background-color: lightblue;
+  border-radius: 6px;
+  margin-bottom: 50px;
+  text-align: right;
+  padding: 0 10px;
+  color: #000;
+  font-size: 3rem;
+  overflow: hidden;
+}
+
+.spazio-tasti {
+  border-radius: 6px;
+  display: flex;
+}
+
+.numeri {
+  max-width: 60%;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+button {
+  width: 70px;
+  height: 60px;
+  margin: 10px;
+  font-size: 3rem;
+  font-weight: bold;
+  border-radius: 6px;
+  border-style: none;
+}
+
+.tasti-funzione {
+  padding: 20px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+}
+.tasti-funzione button {
+  background-color: black;
+  color: white;
+}
+
+#uguale {
+  background-color: red;
+  color: white;
+}
+
+
